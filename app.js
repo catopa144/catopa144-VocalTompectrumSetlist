@@ -70,8 +70,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Core Functions ---
 
     function loadData() {
-        const storedRepertoire = localStorage.getItem('vt_repertoire_v2');
-        const storedSetlist = localStorage.getItem('vt_setlist_v2');
+        const storedRepertoire = localStorage.getItem('vt_repertoire_v3');
+        const storedSetlist = localStorage.getItem('vt_setlist_v3');
 
         if (storedRepertoire) {
             repertoire = JSON.parse(storedRepertoire);
@@ -516,8 +516,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function saveData() {
-        localStorage.setItem('vt_repertoire_v2', JSON.stringify(repertoire));
-        localStorage.setItem('vt_setlist_v2', JSON.stringify(setlist));
+        localStorage.setItem('vt_repertoire_v3', JSON.stringify(repertoire));
+        localStorage.setItem('vt_setlist_v3', JSON.stringify(setlist));
     }
 
     function renderRepertoire() {
