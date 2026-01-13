@@ -447,7 +447,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 {
                     "id": "1768307119565",
                     "title": "Aladdin Medley",
-                    "duration": 585,
+                    "duration": 420,
                     "year": 2024
                 },
                 {

@@ -97,6 +97,51 @@ h3 {
 @media (max-width: 768px) {
     .main-content {
         grid-template-columns: 1fr;
+        padding-bottom: 80px;
+        /* Add space for scrolling on mobile */
+    }
+
+    /* Reduce Header Sizes */
+    .app-title {
+        font-size: 1.8rem;
+    }
+
+    .app-subtitle {
+        font-size: 0.8rem;
+    }
+
+    .panel-header {
+        padding: var(--spacing-md);
+    }
+
+    .panel-header h2 {
+        font-size: 1.2rem;
+    }
+
+    /* Compact List Items */
+    .song-card {
+        padding: 10px;
+        /* Reduce padding from 16px */
+    }
+
+    .song-title {
+        font-size: 0.95rem;
+        /* Reduce from 1.1rem */
+    }
+
+    .song-duration {
+        font-size: 0.85rem;
+        /* Reduce from 1rem */
+    }
+
+    .song-year {
+        font-size: 0.75rem;
+        padding: 1px 5px;
+    }
+
+    /* Adjust Total Time display in Setlist header */
+    .total-time-display .time {
+        font-size: 1.2rem;
     }
 }
 
