@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocal Tompectrum Setlist Manager</title>
+    <meta name="description" content="Setlist manager for Vocal Tompectrum Barbershop Quartet">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1 class="app-title">Vocal Tompectrum</h1>
+            <p class="app-subtitle">Setlist Manager</p>
+        </header>
+
+        <main class="main-content">
+            <!-- Left Column: Setlist -->
+            <section class="panel setlist-panel">
+                <div class="panel-header">
+                    <h2>Current Setlist</h2>
+                    <div class="header-controls">
+                        <button id="save-image-btn" class="icon-btn" aria-label="Save as Image" title="Save as Image">
+                            <!-- Camera Icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"
+                                fill="currentColor">
+                                <path
+                                    d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm40-80h480L570-480 450-320l-90-120-120 160Zm-40 80v-560 560Z" />
+                            </svg>
+                        </button>
+                        <div class="total-time-display">
+                            <span class="label">Total Time</span>
+                            <span class="time" id="total-time">00:00:00</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="setlist-actions">
+                     Future action buttons like "Clear Setlist" or "Copy Text" 
+                </div> -->
+                <div class="song-list-container" id="setlist-list">
+                    <!-- Selected songs will be injected here -->
+                    <div class="empty-state">
+                        <p>Select songs from the repertoire to build your setlist.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right Column: Repertoire -->
+            <section class="panel repertoire-panel">
+                <div class="panel-header">
+                    <h2>Repertoire</h2>
+                    <div class="header-controls">
+                        <select id="sort-repertoire" class="sort-select" aria-label="Sort Repertoire">
+                            <option value="alpha-asc">A-Z</option>
+                            <option value="time-asc">Shortest</option>
+                            <option value="time-desc">Longest</option>
+                            <option value="year-desc">Year (Newest)</option>
+                            <option value="year-asc">Year (Oldest)</option>
+                        </select>
+                        <button id="import-btn" class="icon-btn" aria-label="Import Data" title="Import Data">
+                            <!-- Upload Icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"
+                                fill="currentColor">
+                                <path
+                                    d="M440-320v-326L336-542l-56-58 200-200 200 200-56 58-104-104v326h-80ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z" />
+                            </svg>
+                        </button>
+                        <button id="export-btn" class="icon-btn" aria-label="Export Data"
+                            title="Copy Data to Clipboard">
+                            <!-- Code/Json Icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"
+                                fill="currentColor">
+                                <path
+                                    d="M320-240 80-480l240-240 57 57-184 184 184 183-57 56Zm320 0-57-56 184-183-184-184 57-57 240 240-240 240Z" />
+                            </svg>
+                        </button>
+                        <button id="add-song-btn" class="icon-btn" aria-label="Add New Song">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                                <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="song-list-container" id="repertoire-list">
+                    <!-- Songs will be injected here -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Modal for Adding/Editing Song -->
+        <div id="add-song-modal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modal-title">Add New Song</h3>
+                    <button class="close-modal-btn">&times;</button>
+                </div>
+                <form id="add-song-form">
+                    <input type="hidden" id="song-id" name="id">
+                    <div class="form-group">
+                        <label for="song-title">Title</label>
+                        <input type="text" id="song-title" name="title" required placeholder="e.g. Good Old Days">
+                    </div>
+                    <div class="form-group">
+                        <label for="song-year">Year (Optional)</label>
+                        <input type="number" id="song-year" name="year" placeholder="e.g. 2024" min="1900" max="2100">
+                    </div>
+                    <div class="form-group">
+                        <label for="song-duration">Duration (mm:ss)</label>
+                        <input type="text" id="song-duration" name="duration" required placeholder="02:30"
+                            pattern="[0-9]{1,2}:[0-9]{2}">
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary close-modal-btn">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Add Song</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal for Importing Data -->
+        <div id="import-modal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Import Data</h3>
+                    <button class="close-modal-btn">&times;</button>
+                </div>
+                <form id="import-form">
+                    <div class="form-group">
+                        <label for="import-json">Paste JSON Data Here</label>
+                        <textarea id="import-json" name="json" required
+                            placeholder='[{"id":"1", "title":"Song Title"...}]' rows="10"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary close-modal-btn">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Import</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- html2canvas Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
