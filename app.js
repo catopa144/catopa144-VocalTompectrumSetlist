@@ -199,6 +199,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     "year": 2016
                 },
                 {
+                    "id": "1768308534160",
+                    "title": "Georgia On My Mind",
+                    "duration": 270,
+                    "year": 2020
+                },
+                {
+                    "id": "1768308534161",
+                    "title": "Just the Way You Are",
+                    "duration": 150,
+                    "year": 2024
+                },
+                {
                     "id": "1768308548261",
                     "title": "Happy Together",
                     "duration": 210,
